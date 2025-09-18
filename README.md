@@ -4,7 +4,7 @@ A lightweight, responsive chessboard built with vanilla HTML/CSS/JS.
 Features drag-and-drop, click-to-move, capture log with in-panel scrolling, sounds, turn tracking, basic win detection (by king capture), localStorage persistence, and keyboard navigation.
 
 ![demo](./demo.gif) 
-- Original source: (https://mvntahax.github.io/chess/)
+Live Project: (https://mvntahax.github.io/chess/)
 
 ---
 
