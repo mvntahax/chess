@@ -66,7 +66,6 @@ http-server -p 5173
 ## Project Structure (suggested)
 
 ```
-.
 ├── index.html
 ├── styles.css
 ├── script.js
@@ -141,7 +140,6 @@ Clear with the Reset button or manually via DevTools.
 * Click: select a piece → click a highlighted square to move
 * Drag & Drop: drag your piece to a legal square
 * Keyboard:
-* 
   * Arrow Keys: move the focus cursor around the board
   * Enter / Space: select or move
 * Reset: button to restart and clear saved state
@@ -197,4 +195,4 @@ No changes except resizing/exporting to PNG for web use.
 
 ---
 
-* Thank you! Please rate 5 stars if you like it and don't forget to provide credits if you use!^^
+* Please provide credits if you use and make sure to rate it 5 stars. Thank you!^^
