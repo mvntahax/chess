@@ -1,0 +1,278 @@
+/* ============ CUSTOMIZABLE THEME PALETTE ============ */
+:root {
+  /* Colors */
+  --color-page-background: #FFF;
+  --color-main-container-background: #F9BFC7;
+  --color-inner-container-background: #FFF0F0;
+  --color-border: #E0ABBB;
+  --color-button-background: #FFF;
+  --color-heading-text: #FFF;
+  --color-button-text: #E0ABBB;
+  --color-message-text: #E0ABBB;
+
+  /* Fonts */
+  --font-family-main: "Inter", sans-serif;
+  --font-size-large: 1.75rem;
+  --font-size-medium: 1.5rem;
+
+  /* Radii / Borders */
+  --border-radius: 0.3125rem;
+  --border-width-main: 3px;
+  --border-width-inner: 3.413px;
+
+  /* Spacing */
+  --padding-container: 0.625rem;
+  --gap-lg: 40px;
+  --gap-md: 20px;
+  --gap-sm: 12px;
+
+  /* Chess square size */
+  --square: clamp(42px, 6.2vw, 64px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-main);
+  letter-spacing: -0.05em;
+}
+
+html, body {
+  min-height: 100vh;
+  background: url('banner.png') no-repeat center / cover #f5f5f5;
+  color: #fff;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 16px;
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar {
+  width: var(--border-width-inner);
+}
+::-webkit-scrollbar-track {
+  background-color: var(--color-inner-container-background);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 5px;
+}
+
+/* ============ HEADINGS ============ */
+h1 {
+  color: var(--color-heading-text);
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  text-align: center;
+}
+h2 {
+  color: var(--color-button-text);
+  font-size: var(--font-size-medium);
+  font-weight: 500;
+}
+
+/* ============ LAYOUT ============ */
+.game-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(420px, 35vw);
+  align-items: start;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding-inline: 12px;
+}
+
+/* ============ CHESS BOARD ============ */
+#chessboard {
+  width: min(512px, 100%);
+  aspect-ratio: 1 / 1;
+
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+
+  border: var(--border-width-main) solid var(--color-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color-inner-container-background);
+}
+
+.square { display: grid; place-items: center; position: relative; cursor: pointer; }
+
+.square.light {
+  background-color: var(--color-main-container-background);
+}
+.square.dark {
+  background-color: var(--color-inner-container-background);
+}
+
+.piece {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.piece.hide,
+.piece.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.25); opacity: 0.3; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+}
+
+.square.highlight::after,
+.square.capture::after {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+.square.highlight::after {
+  width: 14px; height: 14px;
+  background: rgba(0,0,0,0.8);
+}
+.square.capture::after {
+  width: 20px; height: 20px;
+  background: rgba(255,0,0,0.7);
+}
+
+.square.drag-over {
+  outline: var(--border-width-main) solid var(--color-border);
+  outline-offset: -3px;
+}
+
+/* ============ CHESS DASHBOARD ============ */
+#dashboard {
+  max-width: 420px;
+  width: 100%;
+  border: var(--border-width-main) solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-main-container-background);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding: 16px;
+  min-width: 280px;
+}
+
+.inner-container {
+  background: var(--color-inner-container-background);
+  border-radius: calc(var(--border-radius) - 1px);
+  border: var(--border-width-inner) solid var(--color-border);
+  padding: 12px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: var(--gap-sm);
+  max-height: clamp(260px, 60vh, 520px);
+  overflow: hidden;
+}
+
+#capture-log {
+  list-style: none;
+  margin: 0;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: #2a2a2a;
+  overflow: auto;
+  min-height: 0;
+  max-height: unset;
+}
+
+/* ============ STATUS ============ */
+#status {
+  font-size: 16px;
+  color: #ffffff;
+  padding: 8px 10px;
+  border-radius: var(--border-radius);
+  background: var(--color-main-container-background);
+  text-align: center;
+  border: 2px solid var(--color-border);
+}
+
+/* ============ CAPTURE LOG ============ */
+#capture-log li {
+  padding: 6px 8px;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* ============ BUTTON ============ */
+button,
+#main-button,
+button#resetGame {
+  width: 100%;
+  min-height: 44px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  border: var(--border-width-inner) solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-button-background);
+  color: var(--color-button-text);
+  font-size: var(--font-size-medium);
+  font-weight: 500;
+  line-height: 1;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+button:hover,
+#main-button:hover,
+button#resetGame:hover {
+  transform: translateY(-1px);
+  box-shadow: 1.5px 1.5px 0 var(--color-border);
+}
+
+/* ============ FINAL MESSAGE ============ */
+.final-message {
+  display: none;
+  color: var(--color-message-text);
+  text-align: center;
+  font-size: var(--font-size-large);
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1100px) {
+  .game-container {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: var(--gap-md);
+  }
+}
+
+@media (max-width: 900px) {
+  .game-container {
+    grid-template-columns: 1fr;
+  }
+  #dashboard {
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  #chessboard {
+    max-width: 520px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+    background-position: bottom center;
+    padding: 20px 12px;
+  }
+  :root { --square: clamp(36px, 10vw, 54px); }
+  #capture-log { max-height: 220px; }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chess Game | Made by @mvntahax</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Playable chessboard with move highlights and capture log.| Made by @mvntahax">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <div class="game-container" role="application" aria-label="Chess Game">
+    <div id="chessboard" aria-label="Chessboard" aria-live="polite"></div>
+
+    <div id="dashboard">
+      <h1>Chess Dashboard</h1>
+
+      <div class="inner-container">
+        <h2>Status</h2>
+        <div id="status" aria-live="polite">white's turn</div>
+
+        <h2>Captured Pieces</h2>
+        <ul id="capture-log" aria-live="polite"></ul>
+
+        <button id="resetGame" type="button">Reset Game</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
